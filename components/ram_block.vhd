@@ -13,7 +13,6 @@ entity ram_block is
 		address: in std_logic_vector(ADDRESS_WIDTH-1 downto 0);
 		write: in std_logic;
 		writedata: in std_logic_vector(DATA_WIDTH-1 downto 0);
-		
 		read: in std_logic;
 		readdata: out std_logic_vector(DATA_WIDTH-1 downto 0)
 	);
@@ -33,31 +32,24 @@ architecture rtl of ram_block is
 		end loop;
 		
 		return ram;
-	end function;
-	
+	end;
+
 	signal ram: ram_type := ram_init;
 
 begin
 	
 	process (clock) begin
 		if reset = '1' then
-		
-			readdata <= (others => '0');
-			
+			readdata <= (others => '0');	
 		elsif rising_edge(clock) then
 			
 			if read = '1' then
-		
 				readdata <= ram(to_integer(unsigned(address)));
-			
 			end if;
 			
 			if write = '1' then
-			
-				ram(to_integer(unsigned(address))) <= writedata;
-				
-			end if;
-			
+				ram(to_integer(unsigned(address))) <= writedata;	
+			end if;	
 		end if;
 	end process;
 	
