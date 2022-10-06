@@ -28,6 +28,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+library component_lib;
+
 entity LT24_touch_spi_controller is
 	port (
 		-- Altera Avalon memory-mapped slave ports
@@ -135,7 +137,7 @@ begin
 		);
 		
 	reset_dclk <= chip_select_n or reset;
-	import_serial_clock_generator: entity work.clock_divider
+	import_serial_clock_generator: entity component_lib.clock_divider
 		generic map (DATA_WIDTH => 5)
 		port map (
 			enable    => chip_select,
@@ -169,7 +171,7 @@ begin
 		GETY_COMMAND       when b"10",
 		(others => '0') when others;
 		
-	import_command_shift_register: entity work.shift_register
+	import_command_shift_register: entity component_lib.shift_register
 		generic map (DATA_WIDTH => 7)
 		port map (
 			D         => '0',
@@ -182,7 +184,7 @@ begin
 			Q         => next_cmd_bit
 		);
 	
-	import_data_shift_register: entity work.shift_register
+	import_data_shift_register: entity component_lib.shift_register
 		generic map (DATA_WIDTH => 12)
 		port map (
 			D         => adc_dout,
@@ -204,7 +206,7 @@ begin
 			write_enable => xdata_write_enable
 		);
 	
-	import_xdata_register: entity work.general_sized_register
+	import_xdata_register: entity component_lib.general_sized_register
 		generic map (DATA_WIDTH => 12)
 		port map (
 			D    => data,
@@ -224,7 +226,7 @@ begin
 			write_enable => ydata_write_enable
 		);
 		
-	import_ydata_register: entity work.general_sized_register
+	import_ydata_register: entity component_lib.general_sized_register
 		generic map (DATA_WIDTH => 12)
 		port map (
 			D    => data,
@@ -241,7 +243,7 @@ begin
 		ydata_register          when b"110",
 		(others => '0')         when others;
 		
-	import_penirq_enable_dflipflop: entity work.dflipflop
+	import_penirq_enable_dflipflop: entity component_lib.dflipflop
 		port map (
 			D => writedata(PENIRQ_ENABLE_BIT),
 			ld => control_status_register_write_enable,

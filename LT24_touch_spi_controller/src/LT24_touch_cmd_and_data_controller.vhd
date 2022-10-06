@@ -1,7 +1,9 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-use work.my_pkg.all;
+
+library component_lib;
+use component_lib.my_pkg.all;
 
 entity LT24_touch_cmd_and_data_controller is
 	port (
@@ -66,7 +68,7 @@ begin
 	penirq_seq_finished         <= (count = std_logic_vector(to_unsigned(39, count'length)));
 	
 	
-	import_timer: entity work.counter
+	import_timer: entity component_lib.counter
 		generic map (DATA_WIDTH => 6)
 		port map (
 			cen   => enable,

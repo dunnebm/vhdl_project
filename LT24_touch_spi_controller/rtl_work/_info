@@ -1,0 +1,324 @@
+m255
+K4
+z2
+!s11e vcom 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/bdunne/source/vhdl_project/LT24_touch_spi_controller
+Elt24_touch_cmd_and_data_controller
+Z1 w1665095114
+Z2 DPx8 synopsys 10 attributes 0 22 dc>JdEHRM@6GGENe5bZ?D1
+Z3 DPx4 ieee 14 std_logic_misc 0 22 dN]HY6l5ohPcZ:TaC@B;53
+Z4 DPx13 component_lib 6 my_pkg 0 22 A;=?P63Gf>Xc=_8dfX7kH0
+Z5 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
+Z6 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z7 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
+!i122 0
+R0
+Z8 8src/LT24_touch_cmd_and_data_controller.vhd
+Z9 Fsrc/LT24_touch_cmd_and_data_controller.vhd
+l0
+L8 1
+VLmJ7jBd:8MYDDF9b:BMMo2
+!s100 1z>BI[]XKNzfA0`goA[C@2
+Z10 OV;C;2020.1;71
+31
+Z11 !s110 1665095761
+!i10b 1
+Z12 !s108 1665095760.000000
+Z13 !s90 -reportprogress|300|-93|-work|work|src/LT24_touch_cmd_and_data_controller.vhd|
+Z14 !s107 src/LT24_touch_cmd_and_data_controller.vhd|
+!i113 1
+Z15 o-93 -work work
+Z16 tExplicit 1 CvgOpt 0
+Artl
+DEx13 component_lib 7 counter 0 22 5FhIB;27Lf`VC3AUVAhXK3
+R2
+R3
+R4
+R5
+R6
+R7
+Z17 DEx4 work 34 lt24_touch_cmd_and_data_controller 0 22 LmJ7jBd:8MYDDF9b:BMMo2
+!i122 0
+l45
+L25 83
+Vo?OfW8U_DZT74Y@mGaDGf1
+!s100 J^KlUTUT=8n^85H`cRfIB0
+R10
+31
+R11
+!i10b 1
+R12
+R13
+R14
+!i113 1
+R15
+R16
+Elt24_touch_cs_controller
+Z18 w1664579039
+R6
+R7
+!i122 1
+R0
+Z19 8src/LT24_touch_cs_fsm.vhd
+Z20 Fsrc/LT24_touch_cs_fsm.vhd
+l0
+L4 1
+VHRfH@HkL8bMiND?l0e;DX2
+!s100 o@X@jDl]N`S95>X__:eQn1
+R10
+31
+R11
+!i10b 1
+Z21 !s108 1665095761.000000
+Z22 !s90 -reportprogress|300|-93|-work|work|src/LT24_touch_cs_fsm.vhd|
+Z23 !s107 src/LT24_touch_cs_fsm.vhd|
+!i113 1
+R15
+R16
+Abehavioral
+R6
+R7
+Z24 DEx4 work 24 lt24_touch_cs_controller 0 22 HRfH@HkL8bMiND?l0e;DX2
+!i122 1
+l21
+L16 31
+VX>B[0O:>@OQKbR7;XT8eL2
+!s100 D>Y1Y_1MZiFW8FAe7J`9T0
+R10
+31
+R11
+!i10b 1
+R21
+R22
+R23
+!i113 1
+R15
+R16
+Elt24_touch_data_write_enable_fsm
+Z25 w1664749743
+R6
+R7
+!i122 2
+R0
+Z26 8src/LT24_touch_data_write_enable_fsm.vhd
+Z27 Fsrc/LT24_touch_data_write_enable_fsm.vhd
+l0
+L4 1
+VF7[A_AP88_1PCmhTEOYDk0
+!s100 Thkh6_W9z[B^9HQ;?UiN]3
+R10
+31
+R11
+!i10b 1
+R21
+Z28 !s90 -reportprogress|300|-93|-work|work|src/LT24_touch_data_write_enable_fsm.vhd|
+Z29 !s107 src/LT24_touch_data_write_enable_fsm.vhd|
+!i113 1
+R15
+R16
+Afsm
+R6
+R7
+Z30 DEx4 work 32 lt24_touch_data_write_enable_fsm 0 22 F7[A_AP88_1PCmhTEOYDk0
+!i122 2
+l19
+L14 37
+Vil7MBi_i?hBJJNJ^fnZoT0
+!s100 J6@Co2@FzkHBLi0YEKI452
+R10
+31
+R11
+!i10b 1
+R21
+R28
+R29
+!i113 1
+R15
+R16
+Elt24_touch_init_fsm
+Z31 w1664553803
+R6
+R7
+!i122 3
+R0
+Z32 8src/LT24_touch_init_fsm.vhd
+Z33 Fsrc/LT24_touch_init_fsm.vhd
+l0
+L4 1
+V]QBh5;TXQ:0fQ;F4CO3zn3
+!s100 =l>S^fTUJmET95JCc_MzU2
+R10
+31
+R11
+!i10b 1
+R21
+Z34 !s90 -reportprogress|300|-93|-work|work|src/LT24_touch_init_fsm.vhd|
+Z35 !s107 src/LT24_touch_init_fsm.vhd|
+!i113 1
+R15
+R16
+Abehavioral
+R6
+R7
+Z36 DEx4 work 19 lt24_touch_init_fsm 0 22 ]QBh5;TXQ:0fQ;F4CO3zn3
+!i122 3
+l20
+L15 31
+VG=<86:hga6o[h5jfZNOS=1
+!s100 0Led]jicR`jgFDHiQhKVi2
+R10
+31
+R11
+!i10b 1
+R21
+R34
+R35
+!i113 1
+R15
+R16
+Elt24_touch_penirq_fsm
+Z37 w1665095752
+R6
+R7
+!i122 4
+R0
+Z38 8src/LT24_touch_penirq_fsm.vhd
+Z39 Fsrc/LT24_touch_penirq_fsm.vhd
+l0
+L4 1
+Ve7:EC626F<coEWXXX7TRO3
+!s100 K_o8OX_GZ_O3@<ofRPlcR1
+R10
+31
+R11
+!i10b 1
+R21
+Z40 !s90 -reportprogress|300|-93|-work|work|src/LT24_touch_penirq_fsm.vhd|
+Z41 !s107 src/LT24_touch_penirq_fsm.vhd|
+!i113 1
+R15
+R16
+Abehavioral
+R6
+R7
+Z42 DEx4 work 21 lt24_touch_penirq_fsm 0 22 e7:EC626F<coEWXXX7TRO3
+!i122 4
+l21
+L16 28
+Vi4GQneAUY0G^J=f;Fk@S@0
+!s100 BI63EQj0Rj=LK4YOhTIl42
+R10
+31
+R11
+!i10b 1
+R21
+R40
+R41
+!i113 1
+R15
+R16
+Elt24_touch_spi_controller
+Z43 w1665094463
+R5
+R6
+R7
+!i122 6
+R0
+Z44 8src/LT24_touch_spi_controller.vhd
+Z45 Fsrc/LT24_touch_spi_controller.vhd
+l0
+L33 1
+VKbo`WPDnnIZU4Y]ElUOCD3
+!s100 h_F@I[;;X4?f:BNERX2Fz2
+R10
+31
+Z46 !s110 1665095762
+!i10b 1
+R21
+Z47 !s90 -reportprogress|300|-93|-work|work|src/LT24_touch_spi_controller.vhd|
+Z48 !s107 src/LT24_touch_spi_controller.vhd|
+!i113 1
+R15
+R16
+Astructural
+R42
+DEx13 component_lib 9 dflipflop 0 22 z@4@nNJK7dO3`2Q1CCfbd1
+DEx13 component_lib 22 general_sized_register 0 22 V9Tmai_>POAU^g6_b0JQl2
+R30
+DEx13 component_lib 14 shift_register 0 22 >2FcTfC3bODM5UamDLkj>0
+R2
+R3
+R4
+R17
+DEx13 component_lib 13 clock_divider 0 22 ;GN>a;aNcnj9W:KhINE5Z2
+R24
+R36
+R5
+R6
+R7
+Z49 DEx4 work 25 lt24_touch_spi_controller 0 22 Kbo`WPDnnIZU4Y]ElUOCD3
+!i122 6
+l104
+L54 221
+VDDh@bh3A`gnYAEOFM0AZE2
+!s100 iF[_4eHbOOekLP9I6`2BR2
+R10
+31
+R46
+!i10b 1
+R21
+R47
+R48
+!i113 1
+R15
+R16
+Elt24_touch_spi_controller_tb
+Z50 w1665034010
+R5
+R6
+R7
+!i122 7
+R0
+Z51 8src/LT24_touch_spi_controller_tb.vhd
+Z52 Fsrc/LT24_touch_spi_controller_tb.vhd
+l0
+L20 1
+VE?JfG8d7G2:AJ=cEfzcjD2
+!s100 7@YNnY]KZH8RaESg;@WQ]0
+R10
+31
+R46
+!i10b 1
+Z53 !s108 1665095762.000000
+Z54 !s90 -reportprogress|300|-93|-work|work|src/LT24_touch_spi_controller_tb.vhd|
+!s107 src/LT24_touch_spi_controller_tb.vhd|
+!i113 1
+R15
+R16
+Atestbench
+R49
+R5
+R6
+R7
+DEx4 work 28 lt24_touch_spi_controller_tb 0 22 E?JfG8d7G2:AJ=cEfzcjD2
+!i122 7
+l78
+L23 340
+V>S<VGefmmOoGNhA4lgdZP3
+!s100 7kknI@^9>IRB`z^G;maza0
+R10
+31
+R46
+!i10b 1
+R53
+R54
+Z55 !s107 src/LT24_touch_spi_controller_tb.vhd|
+!i113 1
+R15
+R16

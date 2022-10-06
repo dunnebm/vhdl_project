@@ -6,14 +6,16 @@ entity LT24_touch_penirq_fsm is
 		clock: in std_logic;
 		reset: in std_logic;
 		penirq: in std_logic;
+		busy: in std_logic;
+		initialized: in std_logic;
 		finished: in std_logic;
-		penirq_event: out std_logic;
+		penirq_event: out std_logic
 	);
 end entity;
 
 architecture behavioral of LT24_touch_penirq_fsm is
 
-	type state_t is s0, s1, s2, s3;
+	type state_t is (s0, s1, s2);
 	signal state: state_t;
 	
 begin
@@ -26,25 +28,12 @@ begin
 			if reset = '1' then
 				state <= s0;
 				penirq_event <= '0';
-			elsif state = s0 and penirq = '1' and finished = '0' then
+			elsif state = s0 and penirq = '1' and busy = '0' and initialized = '1' then
 				state <= s1;
 				penirq_event <= '0';
-			elsif state = s1 and finished then
+			elsif state = s1 and finished = '1' then
 				state <= s2;
 				penirq_event <= '1';
-			elsif state = s2 then
-			
-				if finished = '0' then
-					state <= s0;
-				else
-					state <= s3;
-				end if;
-				
-				penirq_event <= '0';
-				
-			elsif state = s3 and finished = '0' then
-				state <= s0;
-				penirq_event <= '0';
 			end if;
 		
 		end if;
