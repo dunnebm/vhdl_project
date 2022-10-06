@@ -295,7 +295,6 @@ begin
 		
 	end process;
 	
-	
 	penirq_transaction_verify_cmds: process
 	
 		procedure verify_command(constant cmd: std_logic_vector) is
