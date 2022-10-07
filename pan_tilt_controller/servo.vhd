@@ -13,6 +13,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+library component_lib;
+
 entity servo is
 	port(
 		-- start the servo's timer
@@ -57,7 +59,7 @@ begin
 	-- pulse should be 2ms; by subtracting data_in by 19000, these conditions are met.
 	ch1_data <= std_logic_vector(to_unsigned(19000, data_in'length) - unsigned(data_in));
 
-	import_data_register: entity work.general_sized_register
+	import_data_register: entity component_lib.general_sized_register
 		generic map (data_width => 16)
 		port map (
 			D => ch1_data, 
@@ -69,7 +71,7 @@ begin
 		);
 		
 		
-	import_clock_divider: entity work.clock_divider
+	import_clock_divider: entity component_lib.clock_divider
 		generic map (DATA_WIDTH => 6)
 		port map (
 			enable => '1',
@@ -81,7 +83,7 @@ begin
 	
 	-- This configured to generate Pulses at a 20ms period. The data register
 	-- determines the duration of the pulse at the end of each
-	import_timer: entity work.timer
+	import_timer: entity component_lib.timer
 		generic map (data_width => 16)
 		port map (
 			cen => cen, 

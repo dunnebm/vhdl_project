@@ -1,5 +1,4 @@
 -- Author: Brandon Dunne
--- Course: CE 2820 011
 
 -- Test that the pulse behavior is exactly what was expected by 
 -- testing that the delay before the pulse goes high, and that

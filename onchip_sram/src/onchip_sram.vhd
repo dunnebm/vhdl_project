@@ -1,6 +1,8 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
+library component_lib;
+
 entity onchip_sram is
 	port (
 		address: in std_logic_vector(17 downto 0);
@@ -42,7 +44,8 @@ begin
 	block3_write_enable <= not cs(3) and not cs(2) and     cs(1) and     cs(0) and write; -- 0011
 	block4_write_enable <= not cs(3) and     cs(2) and not cs(1) and not cs(0) and write; -- 0100
 	
-	ram_block0: entity work.ram_block
+	-- 32 kB
+	ram_block0: entity component_lib.ram_block
 		generic map (
 			ADDRESS_WIDTH => 14,
 			DATA_WIDTH => 16
@@ -58,7 +61,7 @@ begin
 			readdata => block0_readdata
 		);
 		
-	ram_block1: entity work.ram_block
+	ram_block1: entity component_lib.ram_block
 		generic map (
 			ADDRESS_WIDTH => 14,
 			DATA_WIDTH => 16
@@ -73,9 +76,8 @@ begin
 			read => read,
 			readdata => block1_readdata
 		);
-		
-		
-	ram_block2: entity work.ram_block
+			
+	ram_block2: entity component_lib.ram_block
 		generic map (
 			ADDRESS_WIDTH => 14,
 			DATA_WIDTH => 16
@@ -91,7 +93,7 @@ begin
 			readdata => block2_readdata
 		);
 		
-	ram_block3: entity work.ram_block
+	ram_block3: entity component_lib.ram_block
 		generic map (
 			ADDRESS_WIDTH => 14,
 			DATA_WIDTH => 16
@@ -107,7 +109,7 @@ begin
 			readdata => block3_readdata
 		);
 		
-	ram_block4: entity work.ram_block
+	ram_block4: entity component_lib.ram_block
 		generic map (
 			ADDRESS_WIDTH => 14,
 			DATA_WIDTH => 16
@@ -128,10 +130,9 @@ begin
 			clock => clock,
 			read => read,
 			readdatavalid => readdatavalid
-		);
+		);	
 		
-		
-	sync_read_select: entity work.general_sized_register
+	sync_read_select: entity component_lib.general_sized_register
 		generic map (data_width => 4)
 		port map (
 			D => cs,
@@ -148,7 +149,6 @@ begin
 		block2_readdata when b"0010",
 		block3_readdata when b"0011",
 		block4_readdata when b"0100",
-		(others => '0') when others;
-		
+		(others => '0') when others;		
 
 end architecture;

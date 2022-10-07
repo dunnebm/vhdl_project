@@ -10,6 +10,8 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
+library component_lib;
+
 entity pan_tilt_controller is
 	port (
 		address: in std_logic_vector(1 downto 0);
@@ -40,7 +42,7 @@ begin
 	pan_write_enable        <= write and not address(1) and     address(0); -- 01
 	tilt_write_enable       <= write and     address(1) and not address(0); -- 10
 
-	control_register0: entity work.general_sized_register
+	control_register0: entity component_lib.general_sized_register
 		generic map (data_width => 16)
 		port map (
 			D => writedata,
