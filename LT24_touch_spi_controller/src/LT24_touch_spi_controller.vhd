@@ -149,9 +149,12 @@ begin
 	
 	import_cmd_and_data_controller: entity work.LT24_touch_cmd_and_data_controller
 		port map (
+			-- inputs
 			enable                  => chip_select,
 			dclk                    => dclk_n,
 			init_seq                => initializing,
+
+			-- outputs
 			finished                => finished,
 			send_start_bit          => send_start_bit,
 			shift_cmd_register      => shift_cmd_register,

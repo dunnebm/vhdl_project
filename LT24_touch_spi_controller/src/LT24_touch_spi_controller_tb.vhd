@@ -117,7 +117,7 @@ begin
 			assert_equal(adc_cs_n, '0', "adc_cs_n should be low.");
 			write <= '0';
 			
-			--** Verify init command is sent correctly throught adc_din **--
+			--** Verify init command is sent correctly through adc_din **--
 			
 			wait until rising_edge(adc_dclk);
 			

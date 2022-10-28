@@ -23,7 +23,7 @@ architecture testbench of pan_tilt_controller_tb is
 	signal pan_pulse:  std_logic;
 	signal tilt_pulse: std_logic;
 	
-	constant CLK_PERIOD: time := 10ns;
+	constant CLK_PERIOD: time := 10 ns;
 	
 	-- The number of clock cycles that go into a timer clock-cycle (one timer
 	-- per servo).
