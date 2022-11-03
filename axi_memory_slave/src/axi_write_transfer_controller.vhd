@@ -31,16 +31,16 @@ entity axi_write_transfer_controller is
     bvalid: out std_logic;
     bready: in std_logic;
 
-    byte_enable: out std_logic_vector(3 downto 0);
-    write_address: out std_logic_vector(15 downto 0);
-    write_data: out std_logic_vector(31 downto 0)
+    ram_byte_enable: out std_logic_vector(3 downto 0);
+    ram_write_address: out std_logic_vector(15 downto 0);
+    ram_write_data: out std_logic_vector(31 downto 0)
   );
 end entity;
 
 architecture fsm of axi_write_transfer_controller is
-  signal next_write_address: std_logic_vector(write_address'range);
-  signal current_byte_enable: std_logic_vector(byte_enable'range);
-  signal next_byte_enable: std_logic_vector(byte_enable'range) := b"0000";
+  signal next_write_address: std_logic_vector(ram_write_address'range);
+  signal current_byte_enable: std_logic_vector(ram_byte_enable'range);
+  signal next_byte_enable: std_logic_vector(ram_byte_enable'range) := b"0000";
   signal burst_length: std_logic_vector(awlen'range);
   signal burst_size: std_logic_vector(awsize'range);
 
@@ -151,8 +151,8 @@ architecture fsm of axi_write_transfer_controller is
 
 begin
 
-  --read_write_collision <= (read_address = next_write_address);
-  write_data <= parseWriteData(wdata, wstrb, next_byte_enable);
+  ram_write_data <= parseWriteData(wdata, wstrb, current_byte_enable);
+  ram_byte_enable <= current_byte_enable;
  
   process (aclk)
     type state_t is (
@@ -234,7 +234,7 @@ begin
           awready <= '0';
           wready <= '0';
           bvalid <= '0';
-			    byte_enable <= b"0000";
+			    current_byte_enable <= b"0000";
           next_byte_enable <= b"0000";
         when awaddr_ready =>
           awready <= '1';
@@ -251,16 +251,16 @@ begin
           awready <= '0';
           wready <= '1';
           bvalid <= '0';
-          write_address <= next_write_address;
-          byte_enable <= next_byte_enable;
+          ram_write_address <= next_write_address;
+          current_byte_enable <= next_byte_enable;
           next_write_address <= updateAddress(next_write_address, next_byte_enable);
           next_byte_enable <= updateByteEnable(burst_size, next_byte_enable);
         when last_wdata_ready =>
           awready <= '0';
           wready <= '1';
           bvalid <= '0';
-          write_address <= next_write_address;
-          byte_enable <= next_byte_enable;
+          ram_write_address <= next_write_address;
+          current_byte_enable <= next_byte_enable;
         when ignoring_wdata_because_of_error =>
           awready <= '0';
           wready <= '1';

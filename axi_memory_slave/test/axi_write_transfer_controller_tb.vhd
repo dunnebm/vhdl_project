@@ -1,5 +1,8 @@
 -- Author: Brandon Dunne
 
+-- This testbench tests every burst-length for each
+-- burst-size using cross-coverage.
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -33,9 +36,9 @@ architecture testbench of axi_write_transfer_controller_tb is
   signal bvalid: std_logic;
   signal bready: std_logic;
 
-  signal byte_enable: std_logic_vector(3 downto 0);
-  signal write_address: std_logic_vector(15 downto 0);
-  signal write_data: std_logic_vector(31 downto 0);
+  signal ram_byte_enable: std_logic_vector(3 downto 0);
+  signal ram_write_address: std_logic_vector(15 downto 0);
+  signal ram_write_data: std_logic_vector(31 downto 0);
 
   constant CLOCK_PERIOD: time := 10 ns;
   constant LAST_BYTE_ADDRESS: integer := 2**16 - 1;
@@ -101,9 +104,9 @@ begin
       bvalid => bvalid,
       bready => bready,
 
-      byte_enable => byte_enable,
-      write_address => write_address,
-      write_data => write_data
+      ram_byte_enable => ram_byte_enable,
+      ram_write_address => ram_write_address,
+      ram_write_data => ram_write_data
     );
 
   aclk <= not aclk after CLOCK_PERIOD/2;
@@ -181,12 +184,9 @@ begin
     variable burst_length: natural := 0;
     variable burst_count: natural := 0;
   begin
-
     wait on aw_stimulus_generated'transaction;
 
     wait until areset = '0' and aclk = '1';
-
-    --** Testing address/control channel **--
 
     awaddr <= aw_stimulus.awaddr;
     awlen <= aw_stimulus.awlen;
@@ -202,15 +202,12 @@ begin
     wait for CLOCK_PERIOD;
     awvalid <= '0';
 
-    --** Testing write channel  **--
     burst_length := to_integer(unsigned(awlen)) + 1;
     burst_count := 0;
     for burst_count in 0 to burst_length - 1 loop
 
       w_stimulus_request <= true;
       wait on w_stimulus_generated'transaction;
-
-      report "w_stimulus generated";
 
       wdata <= w_stimulus.wdata;
       wstrb <= w_stimulus.wstrb;
@@ -222,11 +219,11 @@ begin
         wlast <= '0';
       end if;
 
-      report "drive w channel signals";
+      if wready = '0' then
+        wait until wready = '1';
+      end if;
 
       wait for CLOCK_PERIOD;
-
-      report "burst_count = " & integer'image(burst_count);
 
       -- request data verification
       verify_data_request <= true;
@@ -290,21 +287,14 @@ begin
 
     wait on verify_data_request'transaction;
 
-    report "about to compute wstrb bounds";
     (wstrb_upper, wstrb_lower) := getBounds(wstrb);
-    report "computed wstrb bounds";
-    (be_upper, be_lower) := getBounds(byte_enable);
-    report "computed byte_enable bounds";
-
-    assert_equal(wready, '1', "wready should be high");
+    (be_upper, be_lower) := getBounds(ram_byte_enable);
 
     assert_equal(
       wdata(wstrb_upper downto wstrb_lower), 
-      write_data(be_upper downto be_lower),
+      ram_write_data(be_upper downto be_lower),
       "unexpected data"
     );
-
-    report "Success: data expected";
 
   end process;
 

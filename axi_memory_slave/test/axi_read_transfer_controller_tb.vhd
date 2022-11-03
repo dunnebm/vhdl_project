@@ -1,5 +1,8 @@
 -- Author: Brandon Dunne
 
+-- This testbench tests every burst-length for each
+-- burst-size using cross-coverage.
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -29,11 +32,8 @@ architecture testbench of axi_read_transfer_controller_tb is
   signal rvalid: std_logic;
   signal rready: std_logic;
 
-  signal read_address: std_logic_vector(15 downto 0);
-  signal read_data: std_logic_vector(31 downto 0);
-
-  signal byte_enable: std_logic_vector(3 downto 0);
-  signal next_byte_enable: std_logic_vector(3 downto 0);
+  signal ram_read_address: std_logic_vector(15 downto 0);
+  signal ram_read_data: std_logic_vector(31 downto 0);
 
   constant CLOCK_PERIOD: time := 10 ns;
   constant DELTA_CYCLE: time := 0 ns;
@@ -68,7 +68,7 @@ architecture testbench of axi_read_transfer_controller_tb is
   
   procedure assert_equal(a,b: std_logic_vector; err_msg: string) is
   begin
-    assert a = b report err_msg severity failure;
+    assert a = b report err_msg severity error;
   end procedure;
 
   procedure assert_not_equal(a,b: integer; err_msg: string) is
@@ -96,11 +96,8 @@ begin
       rvalid => rvalid,
       rready => rready,
 
-      read_address => read_address,
-      read_data => read_data,
-
-      byte_enable_sim => byte_enable,
-      next_byte_enable_sim => next_byte_enable
+      ram_read_address => ram_read_address,
+      ram_read_data => ram_read_data
     );
 
   aclk <= not aclk after CLOCK_PERIOD/2;
@@ -195,7 +192,7 @@ begin
       r_stimulus_request <= true;
       wait on r_stimulus_generated'transaction;
 
-      read_data <= r_stimulus.rdata;
+      ram_read_data <= r_stimulus.rdata;
 
       wait until rvalid = '1';
 
@@ -282,19 +279,17 @@ begin
     end function;
 
     variable stimulus_upper, stimulus_lower, rdata_upper: integer;
-    variable expected_value, value: integer;
   begin
     wait on verify_data_request'transaction;
 
     rdata_upper := getRDataUpperBound(ar_stimulus.arsize);
     (stimulus_upper, stimulus_lower) := getStimulusDataBounds(ar_stimulus.araddr, ar_stimulus.arsize);
 
-    value := to_integer(unsigned(rdata(rdata_upper downto 0)));
-    expected_value := to_integer(unsigned(read_data(stimulus_upper downto stimulus_lower)));
+    report "expected_data = " & to_hstring(ram_read_data(stimulus_upper downto stimulus_lower)) &
+           ", rdata = " & to_hstring(rdata(rdata_upper downto 0));
+   
     assert_equal(
-      rdata(rdata_upper downto 0), read_data(stimulus_upper downto stimulus_lower), 
-      "expected " & integer'image(expected_value) & "; got " & integer'image(value)
-    );
+      rdata(rdata_upper downto 0), ram_read_data(stimulus_upper downto stimulus_lower), "Unexpected data");
 
   end process;
 

@@ -18,19 +18,14 @@ entity axi_read_transfer_controller is
     arvalid: in std_logic;
     arready: out std_logic;
 
-    -- data that is sent to the master
     rdata: out std_logic_vector(31 downto 0);
     rresp: out std_logic_vector(1 downto 0);
     rlast: out std_logic;
     rvalid: out std_logic;
     rready: in std_logic;
 
-    -- data read in from RAM
-    read_address: out std_logic_vector(15 downto 0);
-    read_data: in std_logic_vector(31 downto 0);
-
-    byte_enable_sim: out std_logic_vector(3 downto 0);
-    next_byte_enable_sim: out std_logic_vector(3 downto 0)
+    ram_read_address: out std_logic_vector(15 downto 0);
+    ram_read_data: in std_logic_vector(31 downto 0)
   );
 end entity;
 
@@ -70,10 +65,7 @@ architecture rtl of axi_read_transfer_controller is
 
 begin
 
-  rdata <= parseReadData(read_data, byte_enable);
-
-  byte_enable_sim <= byte_enable;
-  next_byte_enable_sim <= next_byte_enable;
+  rdata <= parseReadData(ram_read_data, byte_enable);
 
   process (aclk)
     type state_t is (
@@ -140,7 +132,7 @@ begin
           arready <= '0';
           rvalid <= '0';
           rlast <= '0';
-          read_address <= next_read_address;
+          ram_read_address <= next_read_address;
           byte_enable <= next_byte_enable;
           next_read_address <= updateAddress(next_read_address, next_byte_enable);
           next_byte_enable <= updateByteEnable(burst_size, next_byte_enable);
